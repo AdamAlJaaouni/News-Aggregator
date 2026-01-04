@@ -27,8 +27,9 @@ app.get('/api/news', async (req, res) => {
     });
     res.json(response.data);
   } catch (error) {
-    console.error('Error fetching news:', error);
-    res.status(500).json({ error: 'Failed to fetch news' });
+    console.error('Error fetching news:', error.response?.data || error.message);
+    const errorMessage = error.response?.data?.message || 'Failed to fetch news';
+    res.status(500).json({ error: errorMessage });
   }
 });
 
@@ -47,8 +48,9 @@ app.get('/api/news/search', async (req, res) => {
     });
     res.json(response.data);
   } catch (error) {
-    console.error('Error searching news:', error);
-    res.status(500).json({ error: 'Failed to search news' });
+    console.error('Error searching news:', error.response?.data || error.message);
+    const errorMessage = error.response?.data?.message || 'Failed to search news';
+    res.status(500).json({ error: errorMessage });
   }
 });
 
